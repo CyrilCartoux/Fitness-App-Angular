@@ -11,12 +11,14 @@ import { MaterialModule } from './material/material.module';
 // Components
 import { AppComponent } from './app.component';
 import { WelcomeComponent } from './welcome/welcome.component';
+import { NavigationHeaderComponent } from './navigation-header/navigation-header.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    WelcomeComponent
+    WelcomeComponent,
+    NavigationHeaderComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,14 @@
+.welcome {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 15px;
+}
+
+@media screen and (min-width: 850px) {
+    .welcome {
+        flex-direction: row;
+        justify-content: space-around;
+    }
+}
