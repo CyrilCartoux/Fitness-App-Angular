@@ -18,7 +18,7 @@
             <mat-datepicker #picker></mat-datepicker>
             <mat-hint>Must be over 12yo.</mat-hint>
         </mat-form-field>
-        <mat-checkbox ngModel name="agree" required #agree="ngModel">I agree to Terms & Conditions</mat-checkbox>
-        <button mat-raised-button color="accent" [disabled]="signupForm.invalid" type="submit">Signup</button>
+        <mat-checkbox color="primary" ngModel name="agree" required #agree="ngModel">I agree to Terms & Conditions</mat-checkbox>
+        <button mat-raised-button color="primary" [disabled]="signupForm.invalid" type="submit">Signup</button>
     </form>
 </mat-card>

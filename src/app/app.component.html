@@ -1,2 +1,25 @@
-<app-header></app-header>
-<router-outlet></router-outlet>
+<mat-sidenav-container class="example-container">
+    <mat-sidenav #sidenav role="navigation">Drawer content</mat-sidenav>
+    <mat-sidenav-content>
+        <mat-toolbar color='primary'>
+
+            <button mat-icon-button (click)='sidenav.toggle()'>
+                <mat-icon>menu</mat-icon>
+            </button>
+            <span> <a routerLink='/'>My Fitness App</a> </span>
+            <span class="spacer"></span>
+            <ul>
+                <li>
+                    <a mat-button routerLink="/training" routerLinkActive="mat-accent">Training</a>
+                </li>
+                <li>
+                    <a mat-button routerLink="/auth/login" routerLinkActive="mat-accent">Login</a>
+                </li>
+                <li>
+                    <a mat-button routerLink="/auth/signup" routerLinkActive="mat-accent">Signup</a>
+                </li>
+            </ul>
+        </mat-toolbar>
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>
