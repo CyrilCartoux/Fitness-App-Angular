@@ -7,3 +7,7 @@ form {
 mat-form-field {
     width: 300px;
 }
+
+mat-checkbox {
+    margin: 15px 12px;
+}
