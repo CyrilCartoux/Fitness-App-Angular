@@ -1,0 +1,10 @@
+<h1 mat-dialog-title>
+    Are you sure you want to give up this easily ?!
+</h1>
+<mat-dialog-content>
+    <p>You already got to {{ passedData.timerCount }}% .. </p>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-raised-button color=primary [mat-dialog-close]='false'>No I'm not a pussy</button>
+    <button mat-button color=accent [mat-dialog-close]='true'>Yes bring me my moma</button>
+</mat-dialog-actions>
