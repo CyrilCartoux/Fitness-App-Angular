@@ -1,7 +1,8 @@
+import { MaterialModule } from './../material/material.module';
 import { TrainingRoutingModule } from './training-routing.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TrainingComponent } from './training/training.component';
+import { TrainingComponent } from './training.component';
 import { CurrentTrainingComponent } from './current-training/current-training.component';
 import { NewTrainingComponent } from './new-training/new-training.component';
 import { PastTrainingsComponent } from './past-trainings/past-trainings.component';
@@ -17,7 +18,8 @@ import { PastTrainingsComponent } from './past-trainings/past-trainings.componen
   ],
   imports: [
     CommonModule,
-    TrainingRoutingModule
+    TrainingRoutingModule,
+    MaterialModule
   ]
 })
 export class TrainingModule { }

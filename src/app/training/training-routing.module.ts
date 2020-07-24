@@ -1,4 +1,4 @@
-import { TrainingComponent } from './training/training.component';
+import { TrainingComponent } from './training.component';
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 
