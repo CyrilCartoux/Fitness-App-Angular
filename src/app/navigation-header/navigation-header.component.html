@@ -1,20 +1,20 @@
 <mat-sidenav-container class="example-container">
     <mat-sidenav #sidenav role="navigation">
         <mat-nav-list>
-            <a mat-list-item routerLink="/training" routerLinkActive="mat-primary" (click)="sidenav.close()">
+            <a mat-list-item routerLink="/training" routerLinkActive="mat-primary" *ngIf="user" (click)="sidenav.close()">
                 <mat-icon>fitness_center</mat-icon>
                 <span class="nav-caption"> Training</span>
             </a>
-            <a mat-list-item routerLink="/auth/login" routerLinkActive="mat-primary" (click)="sidenav.close()">
+            <a mat-list-item routerLink="/auth/login" *ngIf="!user" routerLinkActive="mat-primary" (click)="sidenav.close()">
                 <mat-icon>login</mat-icon>
                 <span class="nav-caption"> Login</span>
             </a>
-            <a mat-list-item routerLink="/auth/signup" routerLinkActive="mat-primary" (click)="sidenav.close()">
+            <a mat-list-item routerLink="/auth/signup" *ngIf="!user" routerLinkActive="mat-primary" (click)="sidenav.close()">
                 <mat-icon>face</mat-icon>
                 <span class="nav-caption"> Signup</span>
             </a>
-            <mat-list-item>
-                <button mat-icon-button (click)="sidenav.close()">
+            <mat-list-item *ngIf="user">
+                <button mat-icon-button (click)="onLogout()">
                     <mat-icon>logout</mat-icon>
                     <span class="nav-caption"> Logout</span>
                 </button>
@@ -31,14 +31,17 @@
             <span class="spacer"></span>
             <div class="nav-items">
                 <ul>
-                    <li>
+                    <li *ngIf="user">
                         <a mat-button routerLink="/training" routerLinkActive="mat-accent">Training</a>
                     </li>
-                    <li>
+                    <li *ngIf="!user">
                         <a mat-button routerLink="/auth/login" routerLinkActive="mat-accent">Login</a>
                     </li>
-                    <li>
+                    <li *ngIf="!user">
                         <a mat-button routerLink="/auth/signup" routerLinkActive="mat-accent">Signup</a>
+                    </li>
+                    <li *ngIf="user">
+                        <button mat-button (click)="onLogout()">Logout</button>
                     </li>
                 </ul>
             </div>
