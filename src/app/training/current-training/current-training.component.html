@@ -1,1 +1,19 @@
-<p>current-training works!</p>
+<section>
+    <mat-progress-spinner mode="determinate" [value]="timerCount">
+    </mat-progress-spinner>
+    <h1>{{ timerCount }}% </h1>
+    <p>Keep on pushing ! You can do it !!</p>
+    <div class="timer-buttons">
+        <button mat-raised-button color="primary" *ngIf="!timerStopped" (click)="onPauseTimer()">
+            <mat-icon>pause</mat-icon>
+        </button>
+
+        <button mat-raised-button color="primary" *ngIf="timerStopped" (click)="startTimer()">
+            <mat-icon>play_arrow</mat-icon>
+        </button>
+
+        <button mat-raised-button color="accent" (click)="onClearTimer()">
+            <mat-icon>alarm_off</mat-icon>
+        </button>
+    </div>
+</section>

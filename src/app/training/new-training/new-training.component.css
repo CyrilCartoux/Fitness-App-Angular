@@ -1,0 +1,21 @@
+.training-card {
+    padding: 30px;
+}
+
+mat-card {
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+mat-card-content {
+    margin: 20px;
+}
+
+@media screen and (max-width: 450px) {
+    mat-card {
+        width: auto;
+    }
+}

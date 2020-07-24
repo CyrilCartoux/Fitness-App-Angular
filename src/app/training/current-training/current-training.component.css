@@ -1,0 +1,15 @@
+section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 25px;
+}
+
+.timer-buttons {
+    display: flex;
+}
+
+.timer-buttons button {
+    margin: 15px;
+}
