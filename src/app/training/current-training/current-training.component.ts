@@ -51,9 +51,14 @@ export class CurrentTrainingComponent implements OnInit {
 
   onCancelTraining() {
     this.onPauseTimer();
-    this.dialog.open(StopTrainingComponent, {
+    const dialogRef = this.dialog.open(StopTrainingComponent, {
       data: {
         timerCount: this.timerCount
+      }
+    });
+    dialogRef.afterClosed().subscribe(response => {
+      if (response) {
+        this.onClearTimer();
       }
     });
   }
