@@ -18,13 +18,22 @@ export class AuthService {
   ) { }
 
   createUser(authData: AuthData) {
+    // create the user
     firebase.auth().createUserWithEmailAndPassword(authData.email, authData.password)
-      .then(result => {
+      .then(credentials => {
         this.user = {
-          email: result.user.email,
-          userId: result.user.uid
+          email: credentials.user.email,
+          userId: credentials.user.uid
         };
-        this.router.navigate(['/login']);
+        // store the user in the database
+        firebase.database().ref('Users').set({
+          email: credentials.user.email,
+          userId: credentials.user.uid
+        });
+        // navigate away
+        this.router.navigate(['/']);
+      }).catch(err => {
+        console.log(err);
       });
   }
 
@@ -37,14 +46,18 @@ export class AuthService {
         };
         this.loggedInUser.next(this.user);
         this.router.navigate(['/training']);
+      }).catch(err => {
+        console.log(err);
       });
   }
 
   logout() {
     firebase.auth().signOut()
-      .then(res => {
+      .then(() => {
         this.loggedInUser.next(null);
         this.router.navigate(['/']);
+      }).catch(err => {
+        console.log(err);
       });
   }
 }

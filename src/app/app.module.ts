@@ -9,9 +9,9 @@ import { TrainingModule } from './training/training.module';
 // Material module
 import { MaterialModule } from './material/material.module';
 // Components
-import { AppComponent } from './app.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { NavigationHeaderComponent } from './navigation-header/navigation-header.component';
+import { AppComponent } from './app.component';
 
 
 @NgModule({
