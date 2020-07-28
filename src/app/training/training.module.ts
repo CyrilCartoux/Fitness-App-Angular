@@ -1,3 +1,4 @@
+import { FormsModule } from '@angular/forms';
 import { MaterialModule } from './../material/material.module';
 import { TrainingRoutingModule } from './training-routing.module';
 import { NgModule } from '@angular/core';
@@ -21,7 +22,8 @@ import { StopTrainingComponent } from './current-training/stop-training/stop-tra
   imports: [
     CommonModule,
     TrainingRoutingModule,
-    MaterialModule
+    MaterialModule,
+    FormsModule
   ],
   entryComponents: [
     StopTrainingComponent

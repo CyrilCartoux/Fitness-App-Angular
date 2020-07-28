@@ -1,26 +1,22 @@
 <section class="training-card">
-    <mat-card>
-        <mat-card-title>
-            Time to start a workout !
-        </mat-card-title>
-        <mat-card-content>
-            <mat-form-field appearance="fill">
-                <mat-label>Choose a workout</mat-label>
-                <mat-select>
-                    <mat-option value='crunches'>
-                        Crunches
-                    </mat-option>
-                    <mat-option value='touch-toes'>
-                        Touch toes
-                    </mat-option>
-                    <mat-option value='burpees'>
-                        Burpees
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-        </mat-card-content>
-        <mat-card-actions>
-            <button type="submit" mat-raised-button color="primary" (click)="onStartNewTraining()">Start!</button>
-        </mat-card-actions>
-    </mat-card>
+    <form (ngSubmit)="onStartNewTraining(f)" #f="ngForm">
+        <mat-card>
+            <mat-card-title>
+                Time to start a workout !
+            </mat-card-title>
+            <mat-card-content>
+                <mat-form-field appearance="fill">
+                    <mat-label>Choose a workout</mat-label>
+                    <mat-select required name="selectedExercice" ngModel>
+                        <mat-option *ngFor="let exercice of exercices" [value]='exercice.id'>
+                            {{exercice.id}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </mat-card-content>
+            <mat-card-actions>
+                <button [disabled]="f.invalid" type="submit" mat-raised-button color="primary">Start!</button>
+            </mat-card-actions>
+        </mat-card>
+    </form>
 </section>

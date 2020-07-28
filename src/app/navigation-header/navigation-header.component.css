@@ -46,4 +46,7 @@ a {
     #toggle-nav-button {
         display: block;
     }
+    .mat-list-item {
+        margin: 15px;
+    }
 }

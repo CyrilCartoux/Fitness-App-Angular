@@ -5,6 +5,10 @@
                 <mat-icon>fitness_center</mat-icon>
                 <span class="nav-caption"> Training</span>
             </a>
+            <a mat-list-item routerLink="/" routerLinkActive="mat-primary" (click)="sidenav.close()">
+                <mat-icon>home</mat-icon>
+                <span class="nav-caption"> Home</span>
+            </a>
             <a mat-list-item routerLink="/auth/login" *ngIf="!user" routerLinkActive="mat-primary" (click)="sidenav.close()">
                 <mat-icon>login</mat-icon>
                 <span class="nav-caption"> Login</span>
