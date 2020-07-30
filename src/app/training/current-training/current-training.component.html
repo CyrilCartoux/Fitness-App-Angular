@@ -1,7 +1,7 @@
 <section>
     <mat-progress-spinner mode="determinate" [value]="timerCount">
     </mat-progress-spinner>
-    <h1>{{ timerCount }}% </h1>
+    <h1>{{ timerCount }}% - {{step/600 > 1 ? step/600 + 'min' : step/10 + 'sec'}} </h1>
     <p>Keep on pushing ! You can do it !!</p>
     <div class="timer-buttons">
         <button mat-raised-button color="primary" *ngIf="!timerStopped" (click)="onPauseTimer()">
