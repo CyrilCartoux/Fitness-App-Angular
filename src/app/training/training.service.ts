@@ -45,9 +45,6 @@ export class TrainingService {
       calories: this.runningExercice.duration * (progress / 100),
       state: 'cancelled'
     });
-    console.log('progress: ' + progress)
-    console.log(this.exercicesCompleted)
-    console.log(this.runningExercice.duration)
     this.runningExercice = null;
     this.exerciceSelected.next(null);
   }

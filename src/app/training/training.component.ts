@@ -23,7 +23,6 @@ export class TrainingComponent implements OnInit, OnDestroy {
       if (exercice) {
         this.onGoingTraining = true;
         this.exercice = exercice;
-        console.log(this.exercice)
       } else {
         this.onGoingTraining = false;
       }
