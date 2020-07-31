@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import * as firebase from 'firebase';
 import { BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 @Injectable({
   providedIn: 'root'
@@ -14,12 +15,13 @@ export class AuthService {
   loggedInUser = new BehaviorSubject<User>(null);
 
   constructor(
-    private router: Router
+    private router: Router,
+    private firebaseAuth: AngularFireAuth
   ) { }
 
   createUser(authData: AuthData) {
     // create the user
-    firebase.auth().createUserWithEmailAndPassword(authData.email, authData.password)
+    this.firebaseAuth.auth.createUserWithEmailAndPassword(authData.email, authData.password)
       .then(credentials => {
         this.user = {
           email: credentials.user.email,
@@ -38,7 +40,7 @@ export class AuthService {
   }
 
   login(authData: AuthData) {
-    firebase.auth().signInWithEmailAndPassword(authData.email, authData.password)
+    this.firebaseAuth.auth.signInWithEmailAndPassword(authData.email, authData.password)
       .then(result => {
         this.user = {
           email: result.user.email,
@@ -52,7 +54,7 @@ export class AuthService {
   }
 
   logout() {
-    firebase.auth().signOut()
+    this.firebaseAuth.auth.signOut()
       .then(() => {
         this.loggedInUser.next(null);
         this.router.navigate(['/']);

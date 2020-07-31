@@ -26,6 +26,7 @@ export class CurrentTrainingComponent implements OnInit {
   }
 
   startTimer() {
+    console.log(this.trainingService.getRunningExercice())
     this.step = (this.trainingService.getRunningExercice().duration / 100) * 1000;
     this.timerId = setInterval(() => {
       this.timerCount++;

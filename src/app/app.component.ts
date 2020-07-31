@@ -1,3 +1,4 @@
+import { AngularFireAuth } from 'angularfire2/auth';
 import { User } from './auth/user.model';
 import { AuthService } from './auth/auth.service';
 import { Component, OnInit } from '@angular/core';
@@ -11,7 +12,8 @@ import * as firebase from 'firebase';
 export class AppComponent implements OnInit {
 
   constructor(
-    private authService: AuthService
+    private authService: AuthService,
+    private firebaseAuth: AngularFireAuth
   ) {}
 
   ngOnInit() {
@@ -19,7 +21,7 @@ export class AppComponent implements OnInit {
   }
 
   initUser() {
-    firebase.auth().onAuthStateChanged(user => {
+    this.firebaseAuth.auth.onAuthStateChanged(user => {
       if (user) {
         const userConnected: User = {
           email: user.email,

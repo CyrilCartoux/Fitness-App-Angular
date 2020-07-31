@@ -8,8 +8,8 @@
                 <mat-form-field appearance="fill">
                     <mat-label>Choose a workout</mat-label>
                     <mat-select required name="selectedExercice" ngModel>
-                        <mat-option *ngFor="let exercice of exercices" [value]='exercice.id'>
-                            {{exercice.id}}
+                        <mat-option *ngFor="let exercice of exercises" [value]='exercice.name'>
+                            {{exercice.name}}
                         </mat-option>
                     </mat-select>
                 </mat-form-field>

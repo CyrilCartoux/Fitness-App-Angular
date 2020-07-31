@@ -20,7 +20,11 @@ export class PastTrainingsComponent implements OnInit {
   constructor(private trainingService: TrainingService) { }
 
   ngOnInit() {
-    this.dataSource.data = this.trainingService.getCompletedExercices();
+    this.trainingService.getCompletedExercices()
+      .subscribe((exercice: Exercice[]) => {
+        this.dataSource.data = exercice;
+        console.log(exercice)
+      });
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }

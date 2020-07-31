@@ -18,9 +18,11 @@ export class NavigationHeaderComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    this.authService.loggedInUser.subscribe((user: User) => {
-      this.user = user;
-    });
+    setTimeout(() => {
+      this.authSubscription = this.authService.loggedInUser.subscribe((user: User) => {
+        this.user = user;
+      });
+    }, 500);
   }
   onLogout() {
     this.authService.logout();
@@ -29,5 +31,4 @@ export class NavigationHeaderComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.authSubscription.unsubscribe();
   }
-
 }
