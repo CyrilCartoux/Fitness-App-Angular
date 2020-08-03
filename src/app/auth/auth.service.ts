@@ -6,6 +6,7 @@ import * as firebase from 'firebase';
 import { BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from 'angularfire2/auth';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,7 @@ export class AuthService {
   constructor(
     private router: Router,
     private firebaseAuth: AngularFireAuth,
-    private trainingService: TrainingService
+    private snackBar: MatSnackBar
   ) { }
 
   createUser(authData: AuthData) {
@@ -37,7 +38,9 @@ export class AuthService {
         // navigate away
         this.router.navigate(['/']);
       }).catch(err => {
-        console.log(err);
+        this.snackBar.open(err.message, null, {
+          duration: 3000
+        });
       });
   }
 
@@ -51,7 +54,9 @@ export class AuthService {
         this.loggedInUser.next(this.user);
         this.router.navigate(['/training']);
       }).catch(err => {
-        console.log(err);
+        this.snackBar.open(err.message, null, {
+          duration: 3000
+        });
       });
   }
 

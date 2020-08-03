@@ -10,6 +10,7 @@ import { NgForm } from '@angular/forms';
 export class SignupComponent implements OnInit {
 
   maxDate: Date;
+  isLoading = false;
 
   constructor(
     private authService: AuthService
@@ -21,7 +22,9 @@ export class SignupComponent implements OnInit {
   }
 
   onSignup(form: NgForm) {
+    this.isLoading = true;
     this.authService.createUser(form.value);
+    this.isLoading = false;
   }
 
 }

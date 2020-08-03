@@ -9,6 +9,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
 
+  isLoading = false;
+
   constructor(
     private authService: AuthService
   ) { }
@@ -17,7 +19,9 @@ export class LoginComponent implements OnInit {
   }
 
   onLogin(form: NgForm) {
+    this.isLoading = true;
     this.authService.login(form.value);
+    this.isLoading = false;
   }
 
 }

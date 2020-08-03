@@ -1,4 +1,4 @@
-<mat-card>
+<mat-card *ngIf="!isLoading">
     <form (submit)='onSignup(signupForm)' #signupForm="ngForm">
         <mat-form-field>
             <input matInput name="email" ngModel type="email" required email #emailInput="ngModel"
@@ -21,4 +21,7 @@
         <mat-checkbox color="primary" ngModel name="agree" required #agree="ngModel">I agree to Terms & Conditions</mat-checkbox>
         <button mat-raised-button color="primary" [disabled]="signupForm.invalid" type="submit">Signup</button>
     </form>
+</mat-card>
+<mat-card *ngIf="isLoading">
+    <mat-spinner></mat-spinner>
 </mat-card>

@@ -1,5 +1,4 @@
 import { AngularFirestore } from 'angularfire2/firestore';
-
 import { Injectable } from '@angular/core';
 import { Exercice } from './exercice.model';
 import { Subject, Observable } from 'rxjs';
