@@ -69,7 +69,7 @@ export class TrainingService {
 
   private addDataToDatabase(exercice: Exercice) {
     this.db.collection('completedExercices').add(exercice)
-      .then(res => {
+      .then(() => {
         this.runningExercice = null;
         this.exerciceSelected.next(null);
       })

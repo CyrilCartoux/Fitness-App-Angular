@@ -1,3 +1,4 @@
+import { TrainingService } from './../training/training.service';
 import { AuthData } from './auth-data.model';
 import { User } from './user.model';
 import { Injectable } from '@angular/core';
@@ -16,7 +17,8 @@ export class AuthService {
 
   constructor(
     private router: Router,
-    private firebaseAuth: AngularFireAuth
+    private firebaseAuth: AngularFireAuth,
+    private trainingService: TrainingService
   ) { }
 
   createUser(authData: AuthData) {
@@ -51,6 +53,18 @@ export class AuthService {
       }).catch(err => {
         console.log(err);
       });
+  }
+
+  initUser() {
+    this.firebaseAuth.auth.onAuthStateChanged(user => {
+      if (user) {
+        const userConnected: User = {
+          email: user.email,
+          userId: user.uid
+        };
+        this.loggedInUser.next(userConnected);
+      }
+    });
   }
 
   logout() {
