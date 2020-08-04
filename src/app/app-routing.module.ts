@@ -11,7 +11,8 @@ const routes: Routes = [
     path: 'training',
     canActivate: [AuthGuard],
     loadChildren: () => import('./training/training.module').then(m => m.TrainingModule)
-  }
+  },
+  { path: '**', component: WelcomeComponent }
 ];
 
 @NgModule({

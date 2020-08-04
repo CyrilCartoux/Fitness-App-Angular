@@ -6,7 +6,6 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +18,6 @@ export class AuthService {
   constructor(
     private router: Router,
     private firebaseAuth: AngularFireAuth,
-    private snackBar: MatSnackBar,
     private uiService: UiService,
     private db: AngularFirestore
   ) { }
@@ -39,13 +37,12 @@ export class AuthService {
           userId: credentials.user.uid
         });
         this.uiService.loadingStateChanged.next(false);
+        this.uiService.openSnackBar('Success!');
         // navigate away
         this.router.navigate(['/']);
       }).catch(err => {
         this.uiService.loadingStateChanged.next(false);
-        this.snackBar.open(err.message, null, {
-          duration: 3000
-        });
+        this.uiService.openSnackBar(err.message);
       });
   }
 
@@ -59,12 +56,11 @@ export class AuthService {
         };
         this.loggedInUser.next(this.user);
         this.uiService.loadingStateChanged.next(false);
+        this.uiService.openSnackBar('Success!');
         this.router.navigate(['/training']);
       }).catch(err => {
         this.uiService.loadingStateChanged.next(false);
-        this.snackBar.open(err.message, null, {
-          duration: 3000
-        });
+        this.uiService.openSnackBar(err.message);
       });
   }
 
@@ -85,8 +81,9 @@ export class AuthService {
       .then(() => {
         this.loggedInUser.next(null);
         this.router.navigate(['/']);
+        this.uiService.openSnackBar('Logged out!');
       }).catch(err => {
-        console.log(err);
+        this.uiService.openSnackBar(err.message);
       });
   }
 }

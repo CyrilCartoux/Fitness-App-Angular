@@ -21,11 +21,13 @@ export class TrainingService {
   ) { }
 
   getExercices() {
+    this.uiService.loadingStateChanged.next(true);
     this.db
       .collection('availableExercices')
       .snapshotChanges()
       .pipe(
         map(docArray => {
+          // throw(new Error())
           return docArray.map(doc => {
             const data: any = doc.payload.doc.data();
             return {
@@ -36,8 +38,13 @@ export class TrainingService {
         })
       )
       .subscribe((exercices: Exercice[]) => {
+        this.uiService.loadingStateChanged.next(false);
         this.availableExercices = exercices;
         this.exercicesChanged.next([...this.availableExercices]);
+      }, error => {
+        this.uiService.loadingStateChanged.next(false);
+        this.uiService.openSnackBar('Could not fetch exercises .. Please try again later');
+        this.exercicesChanged.next(null);
       });
   }
 
@@ -75,7 +82,7 @@ export class TrainingService {
         this.exerciceSelected.next(null);
       })
       .catch(err => {
-        console.log(err);
+        this.uiService.openSnackBar('Add to database failed.. please try again later');
       });
   }
 }

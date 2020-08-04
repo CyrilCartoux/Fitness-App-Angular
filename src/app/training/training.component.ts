@@ -32,8 +32,7 @@ export class TrainingComponent implements OnInit, OnDestroy {
     });
     this.uiService.loadingStateChanged.subscribe((isLoading: boolean) => {
       this.isLoading = isLoading;
-      console.log(isLoading)
-    })
+    });
   }
 
   ngOnDestroy() {
