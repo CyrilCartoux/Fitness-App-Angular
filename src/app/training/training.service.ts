@@ -1,3 +1,4 @@
+import { UiService } from './../shared/ui.service';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { Injectable } from '@angular/core';
 import { Exercice } from './exercice.model';
@@ -15,7 +16,8 @@ export class TrainingService {
   availableExercices: Exercice[] = [];
 
   constructor(
-    private db: AngularFirestore
+    private db: AngularFirestore,
+    private uiService: UiService
   ) { }
 
   getExercices() {

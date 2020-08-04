@@ -1,8 +1,8 @@
-import { TrainingService } from './../training/training.service';
+import { AngularFirestore } from 'angularfire2/firestore';
+import { UiService } from './../shared/ui.service';
 import { AuthData } from './auth-data.model';
 import { User } from './user.model';
 import { Injectable } from '@angular/core';
-import * as firebase from 'firebase';
 import { BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from 'angularfire2/auth';
@@ -19,10 +19,13 @@ export class AuthService {
   constructor(
     private router: Router,
     private firebaseAuth: AngularFireAuth,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private uiService: UiService,
+    private db: AngularFirestore
   ) { }
 
   createUser(authData: AuthData) {
+    this.uiService.loadingStateChanged.next(true);
     // create the user
     this.firebaseAuth.auth.createUserWithEmailAndPassword(authData.email, authData.password)
       .then(credentials => {
@@ -31,13 +34,15 @@ export class AuthService {
           userId: credentials.user.uid
         };
         // store the user in the database
-        firebase.database().ref('Users').set({
+        this.db.collection('users').add({
           email: credentials.user.email,
           userId: credentials.user.uid
         });
+        this.uiService.loadingStateChanged.next(false);
         // navigate away
         this.router.navigate(['/']);
       }).catch(err => {
+        this.uiService.loadingStateChanged.next(false);
         this.snackBar.open(err.message, null, {
           duration: 3000
         });
@@ -45,6 +50,7 @@ export class AuthService {
   }
 
   login(authData: AuthData) {
+    this.uiService.loadingStateChanged.next(true);
     this.firebaseAuth.auth.signInWithEmailAndPassword(authData.email, authData.password)
       .then(result => {
         this.user = {
@@ -52,8 +58,10 @@ export class AuthService {
           userId: result.user.uid
         };
         this.loggedInUser.next(this.user);
+        this.uiService.loadingStateChanged.next(false);
         this.router.navigate(['/training']);
       }).catch(err => {
+        this.uiService.loadingStateChanged.next(false);
         this.snackBar.open(err.message, null, {
           duration: 3000
         });

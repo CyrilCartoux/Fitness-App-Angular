@@ -1,3 +1,4 @@
+import { UiService } from './../shared/ui.service';
 import { Subscription } from 'rxjs';
 import { Exercice } from './exercice.model';
 import { TrainingService } from './training.service';
@@ -13,9 +14,11 @@ export class TrainingComponent implements OnInit, OnDestroy {
   onGoingTraining = false;
   exercice: Exercice;
   exerciceSubscription: Subscription;
+  isLoading = false;
 
   constructor(
-    private trainingService: TrainingService
+    private trainingService: TrainingService,
+    private uiService: UiService
   ) { }
 
   ngOnInit(): void {
@@ -26,6 +29,10 @@ export class TrainingComponent implements OnInit, OnDestroy {
       } else {
         this.onGoingTraining = false;
       }
+    });
+    this.uiService.loadingStateChanged.subscribe((isLoading: boolean) => {
+      this.isLoading = isLoading;
+      console.log(isLoading)
     })
   }
 

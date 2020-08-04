@@ -11,3 +11,7 @@ mat-form-field {
 mat-checkbox {
     margin: 15px 12px;
 }
+
+mat-spinner {
+    margin: auto;
+}
