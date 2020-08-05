@@ -2,7 +2,7 @@ import { UiService } from './../shared/ui.service';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { Injectable } from '@angular/core';
 import { Exercice } from './exercice.model';
-import { Subject, Observable } from 'rxjs';
+import { Subject, Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/internal/operators/map';
 
 @Injectable({
@@ -14,6 +14,7 @@ export class TrainingService {
   exercicesChanged = new Subject<Exercice[]>();
   exercicesCompleted: Exercice[] = [];
   availableExercices: Exercice[] = [];
+  firebaseSubs: Subscription[] = [];
 
   constructor(
     private db: AngularFirestore,
@@ -22,7 +23,7 @@ export class TrainingService {
 
   getExercices() {
     this.uiService.loadingStateChanged.next(true);
-    this.db
+    this.firebaseSubs.push(this.db
       .collection('availableExercices')
       .snapshotChanges()
       .pipe(
@@ -45,7 +46,7 @@ export class TrainingService {
         this.uiService.loadingStateChanged.next(false);
         this.uiService.openSnackBar('Could not fetch exercises .. Please try again later');
         this.exercicesChanged.next(null);
-      });
+      }));
   }
 
   startExercice(selectedId: string) {
@@ -73,6 +74,10 @@ export class TrainingService {
 
   getRunningExercice(): Exercice {
     return { ...this.runningExercice };
+  }
+
+  cancelSubs() {
+    this.firebaseSubs.forEach(sub => sub.unsubscribe());
   }
 
   private addDataToDatabase(exercice: Exercice) {

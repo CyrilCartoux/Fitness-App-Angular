@@ -1,3 +1,4 @@
+import { TrainingService } from './../training/training.service';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { UiService } from './../shared/ui.service';
 import { AuthData } from './auth-data.model';
@@ -19,7 +20,8 @@ export class AuthService {
     private router: Router,
     private firebaseAuth: AngularFireAuth,
     private uiService: UiService,
-    private db: AngularFirestore
+    private db: AngularFirestore,
+    private trainingService: TrainingService
   ) { }
 
   createUser(authData: AuthData) {
@@ -80,6 +82,7 @@ export class AuthService {
     this.firebaseAuth.auth.signOut()
       .then(() => {
         this.loggedInUser.next(null);
+        this.trainingService.cancelSubs();
         this.router.navigate(['/']);
         this.uiService.openSnackBar('Logged out!');
       }).catch(err => {
