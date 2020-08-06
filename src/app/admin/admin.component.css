@@ -5,7 +5,19 @@ table {
 
 th, td {
     overflow: hidden;
-    width: 200px;
+    width: 350px;
     text-overflow: ellipsis;
     white-space: nowrap;
+}
+
+mat-form-field {
+    margin: 1rem 0px 0px 150px ;
+}
+
+@media screen and (max-width: 450px) {
+    td#buttons {
+       display: flex;
+       align-items: flex-start;
+       justify-items: flex-start;
+    }
 }

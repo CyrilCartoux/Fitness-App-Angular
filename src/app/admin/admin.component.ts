@@ -5,7 +5,6 @@ import { Exercice } from '../training/exercice.model';
 import { Subscription } from 'rxjs';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { TrainingService } from '../training/training.service';
 
 @Component({
   selector: 'app-admin',
@@ -13,7 +12,7 @@ import { TrainingService } from '../training/training.service';
   styleUrls: ['./admin.component.css']
 })
 export class AdminComponent implements OnInit {
-  displayedColumns = ['name', 'duration', 'calories'];
+  displayedColumns = ['name', 'duration', 'calories', 'actions'];
   dataSource = new MatTableDataSource<Exercice>();
   exercicesCompletedSubscription: Subscription;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
@@ -21,7 +20,7 @@ export class AdminComponent implements OnInit {
 
   constructor(
     private adminService: AdminService
-    ) { }
+  ) { }
 
   ngOnInit() {
     this.exercicesCompletedSubscription = this.adminService.getAvailableExercices()
@@ -39,6 +38,14 @@ export class AdminComponent implements OnInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+  onEditTraining(exercice: Exercice) {
+    console.log(exercice.name)
+  }
+  
+  onDeleteTraining(exercice: Exercice) {
+    console.log(exercice.name)
+
   }
 
 }

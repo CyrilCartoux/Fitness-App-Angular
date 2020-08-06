@@ -2,6 +2,7 @@ import { UiService } from './../shared/ui.service';
 import { Exercice } from './../training/exercice.model';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { Injectable } from '@angular/core';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -22,5 +23,9 @@ export class AdminService {
 
   getAvailableExercices() {
     return this.db.collection('availableExercices').valueChanges();
+  }
+
+  deleteExercice(id: string) {
+
   }
 }

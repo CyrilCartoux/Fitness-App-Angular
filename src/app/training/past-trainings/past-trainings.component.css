@@ -9,3 +9,8 @@ th, td {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
+
+mat-form-field {
+  margin: 1rem 0px 0px 150px ;
+}
