@@ -1,3 +1,4 @@
+import { AdminModule } from './admin/admin.module';
 // Modules
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -17,13 +18,15 @@ import { WelcomeComponent } from './welcome/welcome.component';
 import { NavigationHeaderComponent } from './navigation-header/navigation-header.component';
 import { AppComponent } from './app.component';
 import { environment } from './../environments/environment';
+import { CreateTrainingComponent } from './admin/create-training/create-training.component';
+import { EditTrainingComponent } from './admin/edit-training/edit-training.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     WelcomeComponent,
-    NavigationHeaderComponent
+    NavigationHeaderComponent,
   ],
   imports: [
     BrowserModule,
@@ -32,6 +35,7 @@ import { environment } from './../environments/environment';
     FormsModule,
     AuthModule,
     TrainingModule,
+    AdminModule,
     MaterialModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,

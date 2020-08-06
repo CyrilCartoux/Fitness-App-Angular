@@ -34,7 +34,7 @@ export class AuthService {
           userId: credentials.user.uid
         };
         // store the user in the database
-        this.db.collection('users').add({
+        this.db.collection('users').doc(credentials.user.uid).set({
           email: credentials.user.email,
           userId: credentials.user.uid
         });
