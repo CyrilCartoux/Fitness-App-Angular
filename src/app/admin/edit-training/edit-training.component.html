@@ -1,18 +1,16 @@
-<mat-card>
+<mat-card *ngIf="!isLoading">
     <form (submit)='onEditTraining(createTrainingForm)' #createTrainingForm="ngForm">
-        <mat-card-title>Edit (name) training </mat-card-title>
+        <mat-card-title>Edit {{trainingToEditName}} training </mat-card-title>
         <mat-form-field>
-            <input matInput name="name" ngModel type="string" required minlength=3  #nameInput="ngModel"
-                placeholder="Training name">
+            <input matInput name="name" [(ngModel)]="trainingToEdit.name" type="string" required minlength=3  #nameInput="ngModel" >
             <mat-error *ngIf="nameInput.invalid">Please enter a valid name.</mat-error>
         </mat-form-field>
         <mat-form-field>
-            <input matInput name="duration" ngModel type="number" required #durationInput="ngModel"
-                placeholder="Duration (in seconds)">
+            <input matInput name="duration"  [(ngModel)]="trainingToEdit.duration" type="number" required #durationInput="ngModel">
             <mat-error *ngIf="durationInput.invalid">Please enter an exercice duration.</mat-error>
         </mat-form-field>
         <mat-form-field>
-            <input matInput name="calories" ngModel type="number" required #caloriesInput="ngModel"
+            <input matInput name="calories"  [(ngModel)]="trainingToEdit.calories" type="number" required #caloriesInput="ngModel"
                 placeholder="Calories burned (full exercise)">
             <mat-error *ngIf="caloriesInput.invalid">Please enter a valid number.</mat-error>
         </mat-form-field>
@@ -20,3 +18,4 @@
         <button mat-raised-button color="primary" [disabled]="createTrainingForm.invalid" type="submit">Edit</button>
     </form>
 </mat-card>
+<mat-spinner *ngIf="isLoading"></mat-spinner>

@@ -1,3 +1,4 @@
+import { UiService } from './../../shared/ui.service';
 import { AdminService } from './../admin.service';
 import { NgForm } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
@@ -9,13 +10,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CreateTrainingComponent implements OnInit {
 
-  constructor(private adminService: AdminService) { }
+  constructor(
+    private adminService: AdminService,
+    private uiService: UiService
+    ) { }
 
   ngOnInit(): void {
   }
 
   onCreateTraining(form: NgForm) {
     this.adminService.createTraining(form.value);
+    form.reset();
+    this.uiService.openSnackBar('Training added!');
   }
 
 }

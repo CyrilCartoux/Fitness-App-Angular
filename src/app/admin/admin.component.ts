@@ -42,10 +42,9 @@ export class AdminComponent implements OnInit {
   onEditTraining(exercice: Exercice) {
     console.log(exercice.name)
   }
-  
-  onDeleteTraining(exercice: Exercice) {
-    console.log(exercice.name)
 
+  onDeleteTraining(exercice: Exercice) {
+    this.adminService.deleteExercice(exercice.name);
   }
 
 }
