@@ -81,7 +81,7 @@ export class TrainingService {
   }
 
   private addDataToDatabase(exercice: Exercice) {
-    this.db.collection('completedExercices').doc(exercice.name).set(exercice, {merge: false})
+    this.db.collection('completedExercices').doc(exercice.name).set(exercice, {merge: true})
       .then(() => {
         this.runningExercice = null;
         this.exerciceSelected.next(null);

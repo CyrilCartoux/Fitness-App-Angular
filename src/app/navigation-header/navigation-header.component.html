@@ -17,7 +17,7 @@
                 <mat-icon>face</mat-icon>
                 <span class="nav-caption"> Signup</span>
             </a>
-            <a mat-list-item routerLink="/admin" *ngIf="user" routerLinkActive="mat-primary" (click)="sidenav.close()">
+            <a mat-list-item routerLink="/admin" *ngIf="user && isAdmin" routerLinkActive="mat-primary" (click)="sidenav.close()">
                 <mat-icon>supervisor_account</mat-icon>
                 <span class="nav-caption"> Admin</span>
             </a>
@@ -48,7 +48,7 @@
                     <li *ngIf="!user">
                         <a mat-button routerLink="/auth/signup" routerLinkActive="mat-accent">Signup</a>
                     </li>
-                    <li *ngIf="user">
+                    <li *ngIf="user && isAdmin">
                         <a mat-button routerLink="/admin" routerLinkActive="mat-accent">Admin</a>
                     </li>
                     <li *ngIf="user">

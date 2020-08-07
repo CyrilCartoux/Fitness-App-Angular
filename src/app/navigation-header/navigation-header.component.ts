@@ -12,6 +12,7 @@ export class NavigationHeaderComponent implements OnInit, OnDestroy {
 
   user: User;
   authSubscription: Subscription;
+  isAdmin = false;
 
   constructor(
     private authService: AuthService
@@ -20,6 +21,11 @@ export class NavigationHeaderComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     setTimeout(() => {
       this.authSubscription = this.authService.loggedInUser.subscribe((user: User) => {
+        if (user) {
+          if (user.userId === 'aWjSbHxkKUWOcVPUul6IPhWXtmk1') {
+            this.isAdmin = true;
+          }
+        }
         this.user = user;
       });
     }, 500);

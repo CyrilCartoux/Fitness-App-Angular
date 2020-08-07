@@ -13,7 +13,7 @@ const routes: Routes = [
     loadChildren: () => import('./training/training.module').then(m => m.TrainingModule)
   },
   { path: 'admin',
-  // canActivate: [AuthGuard],
+  canActivate: [AuthGuard],
   loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) },
   { path: '**', component: WelcomeComponent }
 ];
