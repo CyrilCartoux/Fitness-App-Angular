@@ -1,3 +1,5 @@
+import { User } from './../auth/user.model';
+import { AuthService } from './../auth/auth.service';
 import { UiService } from './../shared/ui.service';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { Injectable } from '@angular/core';
@@ -18,7 +20,8 @@ export class TrainingService {
 
   constructor(
     private db: AngularFirestore,
-    private uiService: UiService
+    private uiService: UiService,
+    private authService: AuthService
   ) { }
 
   getExercices() {
@@ -59,7 +62,8 @@ export class TrainingService {
   }
 
   getCompletedExercices(): Observable<any> {
-    return this.db.collection('completedExercices').valueChanges();
+    const uid = this.getUser();
+    return this.db.collection('users').doc(uid).collection('completedExercices').valueChanges();
   }
 
   cancelExercice(progress: number) {
@@ -80,14 +84,24 @@ export class TrainingService {
     this.firebaseSubs.forEach(sub => sub.unsubscribe());
   }
 
+  private getUser() {
+    let uid;
+    this.authService.loggedInUser.subscribe((user: User) => {
+      uid = user.userId;
+    });
+    return uid;
+  }
+
   private addDataToDatabase(exercice: Exercice) {
-    this.db.collection('completedExercices').doc(exercice.name).set(exercice, {merge: true})
+    const uid = this.getUser();
+    this.db.collection('users').doc(uid).collection('completedExercices').add(exercice)
       .then(() => {
         this.runningExercice = null;
         this.exerciceSelected.next(null);
       })
       .catch(err => {
         this.uiService.openSnackBar('Add to database failed.. please try again later');
+        console.log(err)
       });
   }
 }

@@ -1,3 +1,4 @@
+import { TrainingService } from './../training/training.service';
 import { User } from './../auth/user.model';
 import { AuthService } from './../auth/auth.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
@@ -15,23 +16,20 @@ export class NavigationHeaderComponent implements OnInit, OnDestroy {
   isAdmin = false;
 
   constructor(
-    private authService: AuthService
+    private authService: AuthService,
+    private trainingService: TrainingService
   ) { }
 
   ngOnInit(): void {
     setTimeout(() => {
       this.authSubscription = this.authService.loggedInUser.subscribe((user: User) => {
-        if (user) {
-          if (user.userId === 'aWjSbHxkKUWOcVPUul6IPhWXtmk1') {
-            this.isAdmin = true;
-          }
-        }
         this.user = user;
       });
     }, 500);
   }
   onLogout() {
     this.authService.logout();
+    this.trainingService.cancelSubs();
   }
 
   ngOnDestroy() {

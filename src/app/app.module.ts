@@ -1,4 +1,4 @@
-import { AdminModule } from './admin/admin.module';
+
 // Modules
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AuthModule } from './auth/auth.module';
 import { TrainingModule } from './training/training.module';
+import { AdminModule } from './admin/admin.module';
 // AngularFire
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from 'angularfire2/auth';
@@ -18,8 +19,6 @@ import { WelcomeComponent } from './welcome/welcome.component';
 import { NavigationHeaderComponent } from './navigation-header/navigation-header.component';
 import { AppComponent } from './app.component';
 import { environment } from './../environments/environment';
-import { CreateTrainingComponent } from './admin/create-training/create-training.component';
-import { EditTrainingComponent } from './admin/edit-training/edit-training.component';
 
 
 @NgModule({
