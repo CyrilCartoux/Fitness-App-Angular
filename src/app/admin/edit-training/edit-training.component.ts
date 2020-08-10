@@ -32,15 +32,12 @@ export class EditTrainingComponent implements OnInit {
         .subscribe((exercice: Exercice) => {
           this.trainingToEdit = exercice;
           this.uiService.loadingStateChanged.next(false);
-          console.log(this.trainingToEdit);
         });
     });
   }
 
   onEditTraining(form: NgForm) {
     this.adminService.editExercice(form.value.name, this.trainingToEdit);
-    form.reset();
-    this.uiService.openSnackBar('Successfully updated!');
   }
 
 }

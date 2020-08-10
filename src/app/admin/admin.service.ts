@@ -17,6 +17,9 @@ export class AdminService {
 
   createTraining(training: Exercice) {
     this.db.collection('availableExercices').doc(training.name).set(training)
+      .then(() => {
+        this.uiService.openSnackBar('Training created');
+      })
       .catch(() => {
         this.uiService.openSnackBar('Add to database failed.. please try again later');
       });
@@ -35,12 +38,18 @@ export class AdminService {
 
   editExercice(name: string, exercice: Exercice) {
     this.db.collection('availableExercices').doc(name).update(exercice)
+      .then(() => {
+        this.uiService.openSnackBar('Training edited');
+      })
       .catch(err => { this.uiService.openSnackBar(err.message); });
   }
 
   deleteExercice(name: string) {
     console.log(name)
     this.db.collection('availableExercices').doc(name).delete()
+      .then(() => {
+        this.uiService.openSnackBar('Training deleted');
+      })
       .catch(() => {
         this.uiService.openSnackBar('Something went wrong please try again later..')
       });
