@@ -1,6 +1,11 @@
 <mat-card>
     <form (submit)='onSignup(signupForm)' #signupForm="ngForm">
         <mat-form-field>
+            <input matInput name="name" ngModel type="text" required  #nameInput="ngModel"
+                placeholder="Your name">
+            <mat-error *ngIf="nameInput.invalid">Please enter a valid name.</mat-error>
+        </mat-form-field>
+        <mat-form-field>
             <input matInput name="email" ngModel type="email" required email #emailInput="ngModel"
                 placeholder="Email adress">
             <mat-error *ngIf="emailInput.invalid">Please enter a valid email.</mat-error>

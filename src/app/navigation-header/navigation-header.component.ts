@@ -13,7 +13,6 @@ export class NavigationHeaderComponent implements OnInit, OnDestroy {
 
   user: User;
   authSubscription: Subscription;
-  isAdmin = false;
 
   constructor(
     private authService: AuthService,
@@ -25,7 +24,7 @@ export class NavigationHeaderComponent implements OnInit, OnDestroy {
       this.authSubscription = this.authService.loggedInUser.subscribe((user: User) => {
         this.user = user;
       });
-    }, 500);
+    }, 1500);
   }
   onLogout() {
     this.authService.logout();

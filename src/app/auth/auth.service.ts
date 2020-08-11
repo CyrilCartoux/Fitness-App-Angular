@@ -24,21 +24,22 @@ export class AuthService {
 
   createUser(authData: AuthData) {
     this.uiService.loadingStateChanged.next(true);
-    // create the user
     this.firebaseAuth.auth.createUserWithEmailAndPassword(authData.email, authData.password)
       .then(credentials => {
         this.user = {
           email: credentials.user.email,
+          name: authData.name,
           userId: credentials.user.uid
         };
         // store the user in the database
         this.db.collection('users').doc(credentials.user.uid).set({
           email: credentials.user.email,
+          name: authData.name,
           userId: credentials.user.uid
         });
+        this.loggedInUser.next(this.user);
         this.uiService.loadingStateChanged.next(false);
         this.uiService.openSnackBar('Success!');
-        // navigate away
         this.router.navigate(['/']);
       }).catch(err => {
         this.uiService.loadingStateChanged.next(false);
@@ -49,7 +50,7 @@ export class AuthService {
   login(authData: AuthData) {
     this.uiService.loadingStateChanged.next(true);
     this.firebaseAuth.auth.signInWithEmailAndPassword(authData.email, authData.password)
-      .then(result => {
+      .then(async result => {
         this.user = {
           email: result.user.email,
           userId: result.user.uid

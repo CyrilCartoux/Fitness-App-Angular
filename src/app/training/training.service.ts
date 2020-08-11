@@ -16,7 +16,7 @@ export class TrainingService {
   exercicesChanged = new Subject<Exercice[]>();
   exercicesCompleted: Exercice[] = [];
   availableExercices: Exercice[] = [];
-  firebaseSubs: Subscription[] = [];
+  firebaseSubs: Subscription;
 
   constructor(
     private db: AngularFirestore,
@@ -26,7 +26,7 @@ export class TrainingService {
 
   getExercices() {
     this.uiService.loadingStateChanged.next(true);
-    this.firebaseSubs.push(this.db
+    this.firebaseSubs = this.db
       .collection('availableExercices')
       .snapshotChanges()
       .pipe(
@@ -49,7 +49,7 @@ export class TrainingService {
         this.uiService.loadingStateChanged.next(false);
         this.uiService.openSnackBar('Could not fetch exercises .. Please try again later');
         this.exercicesChanged.next(null);
-      }));
+      });
   }
 
   startExercice(selectedId: string) {
@@ -81,13 +81,15 @@ export class TrainingService {
   }
 
   cancelSubs() {
-    this.firebaseSubs.forEach(sub => sub.unsubscribe());
+    this.firebaseSubs.unsubscribe();
   }
 
   private getUser() {
     let uid;
     this.authService.loggedInUser.subscribe((user: User) => {
-      uid = user.userId;
+      if (user) {
+        uid = user.userId;
+      }
     });
     return uid;
   }
