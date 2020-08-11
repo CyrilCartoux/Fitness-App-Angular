@@ -20,6 +20,9 @@ export class CurrentTrainingComponent implements OnInit {
   noDuration = false;
   reps: number;
   number: number;
+  sec: number = 0;
+  min: number = 0;
+  durationTimerId;
 
   constructor(
     private dialog: MatDialog,
@@ -31,6 +34,7 @@ export class CurrentTrainingComponent implements OnInit {
   }
 
   startTimer() {
+    this.durationTimer();
     const duration = this.trainingService.getRunningExercice().duration;
     if (duration) {
       this.step = (this.trainingService.getRunningExercice().duration / 100) * 1000;
@@ -54,24 +58,42 @@ export class CurrentTrainingComponent implements OnInit {
     this.number = exercice.number;
     this.reps = exercice.reps;
   }
+
+  durationTimer() {
+    this.durationTimerId = setInterval(() => {
+      this.sec++;
+      if (this.sec >= 60) {
+        this.min++;
+        this.sec = 0;
+      }
+    }, 1000);
+    this.timerStopped = false;
+  }
+
   onCompleteTraining() {
     this.trainingService.completeExercice();
   }
 
   onPauseTimer() {
     clearInterval(this.timerId);
+    clearInterval(this.durationTimerId);
     this.timerStopped = true;
   }
 
   onClearTimer() {
     clearInterval(this.timerId);
+    clearInterval(this.durationTimerId);
     this.timerStopped = true;
     this.timerIsFinished = false;
     this.timerCount = 0;
+    this.sec = 0;
+    this.min = 0;
   }
 
   replayTimer() {
     this.timerCount = 0;
+    this.sec = 0;
+    this.min = 0;
     this.timerIsFinished = false;
     this.startTimer();
   }

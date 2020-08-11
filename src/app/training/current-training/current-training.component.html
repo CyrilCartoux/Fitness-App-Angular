@@ -4,6 +4,7 @@
         <mat-progress-spinner mode="determinate" [value]="timerCount">
         </mat-progress-spinner>
         <h1>{{ timerCount }}% - {{step/600 > 1 ? step/600 + 'min' : step/10 + 'sec'}} </h1>
+        <h3>{{min}}:{{sec}}</h3>
     </div>
     
     <p>Keep on pushing ! You can do it !!</p>
