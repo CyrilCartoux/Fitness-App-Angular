@@ -12,7 +12,7 @@ import { MatSort } from '@angular/material/sort';
   styleUrls: ['./past-trainings.component.css']
 })
 export class PastTrainingsComponent implements OnInit, OnDestroy {
-  displayedColumns = ['date', 'name', 'duration', 'calories', 'state'];
+  displayedColumns = ['date', 'name', 'duration', 'reps', 'number', 'calories', 'state'];
   dataSource = new MatTableDataSource<Exercice>();
   exercicesCompletedSubscription: Subscription;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;

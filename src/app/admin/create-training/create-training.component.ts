@@ -10,18 +10,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CreateTrainingComponent implements OnInit {
 
+  needReps = false;
+
   constructor(
-    private adminService: AdminService,
-    private uiService: UiService
-    ) { }
+    private adminService: AdminService
+  ) { }
 
   ngOnInit(): void {
   }
 
   onCreateTraining(form: NgForm) {
     this.adminService.createTraining(form.value);
-    form.reset();
-    this.uiService.openSnackBar('Training added!');
+    console.log(form.value);
+  }
+
+  switchNeedReps() {
+    this.needReps = !this.needReps;
   }
 
 }

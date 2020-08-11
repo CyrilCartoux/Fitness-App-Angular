@@ -13,3 +13,7 @@ section {
 .timer-buttons button {
     margin: 15px;
 }
+
+mat-spinner {
+    margin: 15px;
+}

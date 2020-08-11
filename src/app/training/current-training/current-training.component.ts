@@ -1,3 +1,4 @@
+import { Exercice } from './../exercice.model';
 import { TrainingService } from './../training.service';
 import { StopTrainingComponent } from './stop-training/stop-training.component';
 import { MatDialog } from '@angular/material/dialog';
@@ -16,6 +17,10 @@ export class CurrentTrainingComponent implements OnInit {
   timerIsFinished = false;
   step: number;
 
+  noDuration = false;
+  reps: number;
+  number: number;
+
   constructor(
     private dialog: MatDialog,
     private trainingService: TrainingService
@@ -26,16 +31,31 @@ export class CurrentTrainingComponent implements OnInit {
   }
 
   startTimer() {
-    this.step = (this.trainingService.getRunningExercice().duration / 100) * 1000;
-    this.timerId = setInterval(() => {
-      this.timerCount++;
-      if (this.timerCount >= 100) {
-        this.timerIsFinished = true;
-        this.onPauseTimer();
-        this.trainingService.completeExercice();
-      }
-    }, this.step);
-    this.timerStopped = false;
+    const duration = this.trainingService.getRunningExercice().duration;
+    if (duration) {
+      this.step = (this.trainingService.getRunningExercice().duration / 100) * 1000;
+      this.timerId = setInterval(() => {
+        this.timerCount++;
+        if (this.timerCount >= 100) {
+          this.timerIsFinished = true;
+          this.onPauseTimer();
+          this.onCompleteTraining();
+        }
+      }, this.step);
+      this.timerStopped = false;
+    } else {
+      this.noDuration = true;
+      this.startCount();
+    }
+  }
+
+  startCount() {
+    const exercice: Exercice = this.trainingService.getRunningExercice();
+    this.number = exercice.number;
+    this.reps = exercice.reps;
+  }
+  onCompleteTraining() {
+    this.trainingService.completeExercice();
   }
 
   onPauseTimer() {

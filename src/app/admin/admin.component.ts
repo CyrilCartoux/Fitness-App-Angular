@@ -12,7 +12,7 @@ import { MatSort } from '@angular/material/sort';
   styleUrls: ['./admin.component.css']
 })
 export class AdminComponent implements OnInit {
-  displayedColumns = ['name', 'duration', 'calories', 'actions'];
+  displayedColumns = ['name', 'duration', 'reps', 'number', 'calories', 'actions'];
   dataSource = new MatTableDataSource<Exercice>();
   exercicesCompletedSubscription: Subscription;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;

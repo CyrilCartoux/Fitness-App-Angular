@@ -15,6 +15,7 @@ export class EditTrainingComponent implements OnInit {
   trainingToEditName: string;
   trainingToEdit: Exercice;
   isLoading = false;
+  needReps = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -30,6 +31,9 @@ export class EditTrainingComponent implements OnInit {
       this.trainingToEditName = route.get('trainingId');
       this.adminService.fetchTrainingByName(this.trainingToEditName)
         .subscribe((exercice: Exercice) => {
+          if (exercice.reps) {
+            this.needReps = true;
+          }
           this.trainingToEdit = exercice;
           this.uiService.loadingStateChanged.next(false);
         });

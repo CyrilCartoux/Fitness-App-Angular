@@ -1,9 +1,13 @@
 <section>
-    <mat-progress-spinner mode="determinate" [value]="timerCount">
-    </mat-progress-spinner>
-    <h1>{{ timerCount }}% - {{step/600 > 1 ? step/600 + 'min' : step/10 + 'sec'}} </h1>
+
+    <div *ngIf="!noDuration">
+        <mat-progress-spinner mode="determinate" [value]="timerCount">
+        </mat-progress-spinner>
+        <h1>{{ timerCount }}% - {{step/600 > 1 ? step/600 + 'min' : step/10 + 'sec'}} </h1>
+    </div>
+    
     <p>Keep on pushing ! You can do it !!</p>
-    <div class="timer-buttons">
+    <div class="timer-buttons" *ngIf="!noDuration">
         <button mat-raised-button color="primary" *ngIf="!timerStopped" (click)="onPauseTimer()">
             <mat-icon>pause</mat-icon>
         </button>
@@ -21,6 +25,16 @@
         </button>
 
     </div>
+    <div class="count" *ngIf="noDuration">
+        <h1>Total reps to do : {{ reps }} x {{ number }}</h1>
+    </div>
+
+    <mat-spinner *ngIf="noDuration" mode="indeterminate"></mat-spinner>
+
+    <button mat-raised-button *ngIf="noDuration" color="primary" (click)="onCompleteTraining()">
+        I have finished the exercice like a boss
+    </button>
+    <hr>
     <button mat-raised-button color="accent" (click)="onCancelTraining()">
         I give up .. 
     </button>

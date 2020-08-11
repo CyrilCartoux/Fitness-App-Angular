@@ -81,7 +81,9 @@ export class TrainingService {
   }
 
   cancelSubs() {
-    this.firebaseSubs.unsubscribe();
+    if (this.firebaseSubs) {
+      this.firebaseSubs.unsubscribe();
+    }
   }
 
   private getUser() {
