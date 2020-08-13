@@ -12,7 +12,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EditTrainingComponent implements OnInit {
 
-  trainingToEditName: string;
+  trainingToEditId: string;
   trainingToEdit: Exercice;
   isLoading = false;
   needReps = false;
@@ -28,8 +28,9 @@ export class EditTrainingComponent implements OnInit {
       this.isLoading = isLoading;
     });
     this.route.paramMap.subscribe(route => {
-      this.trainingToEditName = route.get('trainingId');
-      this.adminService.fetchTrainingByName(this.trainingToEditName)
+      this.trainingToEditId = route.get('trainingId');
+      console.log(this.trainingToEditId)
+      this.adminService.fetchTrainingByName(this.trainingToEditId)
         .subscribe((exercice: Exercice) => {
           if (exercice.reps) {
             this.needReps = true;
@@ -41,7 +42,7 @@ export class EditTrainingComponent implements OnInit {
   }
 
   onEditTraining(form: NgForm) {
-    this.adminService.editExercice(form.value.name, this.trainingToEdit);
+    this.adminService.editExercice(this.trainingToEditId, form.value);
   }
 
 }

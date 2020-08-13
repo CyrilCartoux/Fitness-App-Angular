@@ -25,6 +25,7 @@ export class AdminComponent implements OnInit {
   ngOnInit() {
     this.exercicesCompletedSubscription = this.adminService.getAvailableExercices()
       .subscribe((exercice: Exercice[]) => {
+        console.log(exercice)
         this.dataSource.data = exercice;
       });
     this.dataSource.paginator = this.paginator;

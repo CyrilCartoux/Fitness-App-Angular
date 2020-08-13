@@ -2,6 +2,7 @@ import { UiService } from './../shared/ui.service';
 import { Exercice } from './../training/exercice.model';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { Injectable } from '@angular/core';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -16,8 +17,9 @@ export class AdminService {
   ) { }
 
   createTraining(training: Exercice) {
-    this.db.collection('availableExercices').doc(training.name).set(training)
-      .then(() => {
+    this.db.collection('availableExercices').add(training)
+      .then((res) => {
+        console.log(res.id);
         this.uiService.openSnackBar('Training created');
       })
       .catch(() => {
@@ -26,7 +28,15 @@ export class AdminService {
   }
 
   getAvailableExercices() {
-    return this.db.collection('availableExercices').valueChanges();
+    return this.db.collection<Exercice>('availableExercices').snapshotChanges().pipe(
+      map(actions => {
+        return actions.map(a => {
+          const data = a.payload.doc.data() as Exercice;
+          const id = a.payload.doc.id;
+          return { id, ...data };
+        });
+      })
+    );
   }
 
   fetchTrainingByName(name: string) {
@@ -36,8 +46,8 @@ export class AdminService {
       .valueChanges();
   }
 
-  editExercice(name: string, exercice: Exercice) {
-    this.db.collection('availableExercices').doc(name).update(exercice)
+  editExercice(id: string, exercice: Exercice) {
+    this.db.collection('availableExercices').doc(id).update(exercice)
       .then(() => {
         this.uiService.openSnackBar('Training edited');
       })

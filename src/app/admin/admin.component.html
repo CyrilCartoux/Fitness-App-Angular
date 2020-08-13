@@ -38,7 +38,7 @@
         <ng-container matColumnDef="actions">
             <th mat-header-cell *matHeaderCellDef>Actions</th>
             <td mat-cell id="buttons" *matCellDef="let element; let i;">
-                <button mat-button [routerLink]="['/admin/edit/' + element.name]" routerLinkActive="router-link-active"  color=primary>
+                <button mat-button [routerLink]="['/admin/edit/' + element.id]" routerLinkActive="router-link-active"  color=primary>
                     <mat-icon>edit</mat-icon>
                 </button>
                 <button mat-button (click)='onDeleteTraining(element)' color=accent>
