@@ -1,6 +1,6 @@
 <mat-card *ngIf="!isLoading">
     <form (submit)='onEditTraining(createTrainingForm)' #createTrainingForm="ngForm">
-        <mat-card-title>Edit {{trainingToEditId}} training </mat-card-title>
+        <mat-card-title>Edit {{trainingToEdit.name}} training </mat-card-title>
         <mat-form-field>
             <input matInput name="name" [(ngModel)]="trainingToEdit.name" type="string" required minlength=3  #nameInput="ngModel" >
             <mat-error *ngIf="nameInput.invalid">Please enter a valid name.</mat-error>
